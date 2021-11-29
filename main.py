@@ -11,6 +11,7 @@ sudoku_board = [
 ]
 
 
+# composite function that utilizes backtracking algorithm
 def solve(board):
     find = find_empty(board)
     if not find:
@@ -26,22 +27,25 @@ def solve(board):
     return False
 
 
+# function that checks whether a number can be inserted into an empty position based on sudoku rules
 def valid(board, number, position):
-    # unique in the row
+    # Check uniqueness in the row
     for i in range(len(board[0])):
         if board[position[0]][i] == number and position[1] != i:
             return False
-    # unique in the column
+    # Check uniqueness in the column
     for i in range(len(board)):
         if board[i][position[1]] == number and position[0] != i:
             return False
-    # unique in the 3x3 section
+    # Check uniqueness in the 3x3 section
+
     section_x = position[1] // 3
     section_y = position[0] // 3
     for i in range(section_y * 3, section_y * 3 + 3):
          for j in range(section_x * 3, section_x * 3 + 3):
              if board[i][j] == number and (i, j) != position:
                  return False
+    # if everything went ok the board is valid
     return True
 
 
